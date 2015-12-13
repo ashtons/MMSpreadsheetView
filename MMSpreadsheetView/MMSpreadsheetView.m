@@ -398,25 +398,27 @@ const static NSUInteger MMScrollIndicatorTag = 12345;
 
 - (void)setDataSource:(id<MMSpreadsheetViewDataSource>)dataSource {
     _dataSource = dataSource;
-    if (self.upperLeftCollectionView) {
-        [self initializeCollectionViewLayoutItemSize:self.upperLeftCollectionView];
-    }
-    if (self.upperRightCollectionView) {
-        [self initializeCollectionViewLayoutItemSize:self.upperRightCollectionView];
-    }
-    if (self.lowerLeftCollectionView) {
-        [self initializeCollectionViewLayoutItemSize:self.lowerLeftCollectionView];
-    }
-    if (self.lowerRightCollectionView) {
-        [self initializeCollectionViewLayoutItemSize:self.lowerRightCollectionView];
-    }
+    if (_dataSource) {
+        if (self.upperLeftCollectionView) {
+            [self initializeCollectionViewLayoutItemSize:self.upperLeftCollectionView];
+        }
+        if (self.upperRightCollectionView) {
+            [self initializeCollectionViewLayoutItemSize:self.upperRightCollectionView];
+        }
+        if (self.lowerLeftCollectionView) {
+            [self initializeCollectionViewLayoutItemSize:self.lowerLeftCollectionView];
+        }
+        if (self.lowerRightCollectionView) {
+            [self initializeCollectionViewLayoutItemSize:self.lowerRightCollectionView];
+        }
 
-    // Validate dataSource & header configuration
-    NSInteger maxRows = [_dataSource numberOfRowsInSpreadsheetView:self];
-    NSInteger maxCols = [_dataSource numberOfColumnsInSpreadsheetView:self];
+        // Validate dataSource & header configuration
+        NSInteger maxRows = [_dataSource numberOfRowsInSpreadsheetView:self];
+        NSInteger maxCols = [_dataSource numberOfColumnsInSpreadsheetView:self];
     
-    NSAssert(self.headerColumnCount < maxCols, @"Invalid configuration: number of header columns must be less than (dataSource) numberOfColumnsInSpreadsheetView");
-    NSAssert(self.headerRowCount < maxRows, @"Invalid configuration: number of header rows must be less than (dataSource) numberOfRowsInSpreadsheetView");
+        NSAssert(self.headerColumnCount < maxCols, @"Invalid configuration: number of header columns must be less than (dataSource) numberOfColumnsInSpreadsheetView");
+        NSAssert(self.headerRowCount < maxRows, @"Invalid configuration: number of header rows must be less than (dataSource) numberOfRowsInSpreadsheetView");
+    }
 }
 
 - (void)initializeCollectionViewLayoutItemSize:(UICollectionView *)collectionView {
