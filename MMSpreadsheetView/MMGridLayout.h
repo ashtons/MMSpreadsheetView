@@ -46,4 +46,5 @@
  */
 @property (nonatomic, assign) CGFloat cellSpacing;
 
+@property (nonatomic, strong) NSArray *cellWidths;
 @end

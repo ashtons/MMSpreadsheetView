@@ -48,6 +48,8 @@
  */
 - (CGSize)spreadsheetView:(MMSpreadsheetView *)spreadsheetView sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
 
+- (NSUInteger)spreadsheetView:(MMSpreadsheetView *)spreadsheetView widthForItemAtIndexPath:(NSIndexPath *)indexPath;
+
 @required
 
 /**

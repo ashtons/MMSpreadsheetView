@@ -47,7 +47,7 @@
     for (NSUInteger rowNumber = 0; rowNumber < rows; rowNumber++) {
         NSMutableArray *row = [NSMutableArray array];
         for (NSUInteger columnNumber = 0; columnNumber < cols; columnNumber++) {
-            [row addObject:[NSString stringWithFormat:@"R%i:C%i", rowNumber, columnNumber]];
+            [row addObject:[NSString stringWithFormat:@"R%lu:C%lu", (unsigned long)rowNumber, (unsigned long)columnNumber]];
         }
         [self.tableData addObject:row];
     }
@@ -76,6 +76,15 @@
 }
 
 #pragma mark - MMSpreadsheetViewDataSource
+
+- (NSUInteger)spreadsheetView:(MMSpreadsheetView *)spreadsheetView widthForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.mmSpreadsheetColumn == 0) {
+        return 320;
+    } else if (indexPath.mmSpreadsheetColumn == 1) {
+        return 60;
+    }
+    return 124;
+}
 
 - (CGSize)spreadsheetView:(MMSpreadsheetView *)spreadsheetView sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat leftColumnWidth = 320.0f;
@@ -128,14 +137,14 @@
         // Upper right.
         cell = [spreadsheetView dequeueReusableCellWithReuseIdentifier:@"TopRowCell" forIndexPath:indexPath];
         MMTopRowCell *tr = (MMTopRowCell *)cell;
-        tr.textLabel.text = [NSString stringWithFormat:@"TR: %i", indexPath.mmSpreadsheetColumn];
+        tr.textLabel.text = [NSString stringWithFormat:@"TR: %li", (long)indexPath.mmSpreadsheetColumn];
         cell.backgroundColor = [UIColor whiteColor];
     }
     else if (indexPath.mmSpreadsheetRow > 0 && indexPath.mmSpreadsheetColumn == 0) {
         // Lower left.
         cell = [spreadsheetView dequeueReusableCellWithReuseIdentifier:@"LeftColumnCell" forIndexPath:indexPath];
         MMLeftColumnCell *lc = (MMLeftColumnCell *)cell;
-        lc.textLabel.text = [NSString stringWithFormat:@"Left Column: %i", indexPath.mmSpreadsheetRow];
+        lc.textLabel.text = [NSString stringWithFormat:@"Left Column: %li", (long)indexPath.mmSpreadsheetRow];
         BOOL isDarker = indexPath.mmSpreadsheetRow % 2 == 0;
         if (isDarker) {
             cell.backgroundColor = [UIColor colorWithRed:222.0f / 255.0f green:243.0f / 255.0f blue:250.0f / 255.0f alpha:1.0f];
